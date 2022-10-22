@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+  public:
+  int dp[100002];
+  int mod = 1e8;
+  
+  int solve(int n) {
+      if(n<0){
+      return 0;
+      }
+      
+      if(n==0) {
+      return 1;
+      }
+      
+      if(dp[n]!=-1) {
+      return dp[n];
+      }
+      
+      int ans=0;
+      
+      ans += solve(n-1)%mod;
+      ans += solve(n-2)%mod;
+    
+      
+      return dp[n] = ans%mod;
+  }
+  int fillingBucket(int N) {
+      memset(dp, -1, sizeof(dp));
+      return solve(N);
+  }
+    
+};
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N;
+        
+        cin>>N;
+
+        Solution ob;
+        cout << ob.fillingBucket(N) << endl;
+    }
+    return 0;
+}
