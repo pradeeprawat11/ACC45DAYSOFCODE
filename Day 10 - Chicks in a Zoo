@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+	long long int NoOfChicks(int n){
+
+	    long long int totalChkn=1;
+	    
+	    long long int arr[42];
+	    
+	    for(int i=0;i<42;i++){
+	        arr[i]=0;
+	    }
+	    
+	    arr[6] = 1;
+	    
+	    for(int i=1;i<n;i++) {
+	        
+	        totalChkn -= arr[i];
+	        
+	       arr[i+6] = 2*totalChkn; 
+	       
+	       totalChkn = (totalChkn*2) + totalChkn;      
+	    }	    
+	    return totalChkn;
+	}
+};
+
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int N;
+		cin >> N;
+		Solution obj;
+		long long int ans = obj.NoOfChicks(N);
+		cout << ans <<"\n";
+	}
+	return 0;
+}
