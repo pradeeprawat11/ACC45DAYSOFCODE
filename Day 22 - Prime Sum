@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+
+    bool solve(int n){
+        if(n<2)
+        return false;
+        
+        for(int i=2;i*i<=n;i++){
+            if(n%i==0)
+            return false;
+        }
+        return true;
+    }
+    string isSumOfTwo(int n){
+   
+        for(int i=2;i<=n;i++){
+            if(solve(i) && solve(n-i))
+            return "Yes";
+        }
+        return "No";
+    }
+};
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N;
+        cin >> N;
+        Solution ob;
+        cout << ob.isSumOfTwo(N) << endl;
+    }
+    return 0;
+}
