@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+  public:
+    int longestPerfectPiece(int a[], int n) {
+        
+        int lo=0, hi=0, ans=0;
+        
+        map<int, int> m;
+        
+        while(hi<n){
+            m[a[hi]]++;
+            
+            while((--m.end())->first - m.begin()->first > 1) {
+                m[a[lo]]--;
+                
+                if(m[a[lo]]==0)
+                m.erase(a[lo]);
+                
+                lo++;
+            }
+            
+            ans = max(ans, hi-lo+1);
+            hi++;
+        }
+        return ans;
+        
+    }
+};
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int N;
+        
+        cin>>N;
+        int arr[N];
+        for(int i=0; i<N; i++)
+            cin>>arr[i];
+
+        Solution ob;
+        cout << ob.longestPerfectPiece(arr,N) << endl;
+    }
+    return 0;
+}
