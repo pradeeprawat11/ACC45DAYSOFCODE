@@ -1,0 +1,52 @@
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution{
+	public:
+	int LongestBitonicSequence(vector<int>nums)
+	{
+	    // code here
+	    int n = nums.size();
+	    vector<int> increase(n,1);
+	    for(int i=1; i<n; ++i){
+	        for(int j=0; j<i; j++){
+	            if(nums[i] > nums[j]){
+	                increase[i] = max(increase[i], 1+increase[j]);
+	            }
+	        }
+	    }
+	    vector<int> decrease(n, 1);
+	    for(int i=n-2; i>=0; --i){
+	        for(int j=n-1; j>i; --j){
+	            if(nums[i] > nums[j]) {
+	                decrease[i] = max(decrease[i], 1+decrease[j]);
+	            }
+	        }
+	    }
+	    int maxi = INT_MIN;
+	    for(int i=0; i<n; ++i){
+	        maxi = max(maxi, (increase[i]+decrease[i]-1));
+	    }
+	    return maxi;
+	}
+};
+
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int n;
+		cin >> n;
+		vector<int>nums(n);
+		for(int i = 0; i < n; i++)
+			cin >> nums[i];
+		Solution ob;
+		int ans = ob.LongestBitonicSequence(nums);
+		cout << ans <<"\n";
+	}
+	return 0;
+}
+// } Driver Code Ends
