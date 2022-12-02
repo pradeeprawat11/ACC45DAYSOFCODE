@@ -1,0 +1,58 @@
+//{ Driver Code Starts
+// Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution {
+  public:
+    int isItPossible(string s, string t, int m, int n) {
+        // code here
+        int i=0, j=0;
+        
+        if(m!=n) 
+            return 0;
+            
+        while(i<m || j<n){
+            while(s[i]=='#')
+                i++;
+            while(t[j]=='#')
+                j++;
+            
+            if(i>=m && j<n)
+                return 0;
+            if(i<m && j>=n)
+                return 0;
+            if(s[i] != t[j])
+                return 0;
+            else{
+                if(s[i]=='A' && i<j)
+                    return 0;
+                else if(s[i]=='B' && i>j)
+                    return 0;
+            }
+            i++;
+            j++;
+        }    
+        return 1;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        string S, T;
+        cin >> S >> T;
+        int M = S.length(), N = T.length();
+        Solution ob;
+        cout << ob.isItPossible(S, T, M, N);
+        cout << "\n";
+    }
+}
+// } Driver Code Ends
