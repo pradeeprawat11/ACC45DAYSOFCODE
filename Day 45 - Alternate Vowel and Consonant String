@@ -1,0 +1,85 @@
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution{
+    void util(vector<int> &a, vector<int> &b, string &s){
+        int p=0,q=0;
+        
+        for(int i=0; i<s.length(); i++){
+            if(i%2 == 0){
+                while(a[p]==0)
+                    p++;
+                    s[i] = p+'a';
+                    a[p]--;
+            }
+            else{
+                while(b[q] == 0)
+                    q++;
+                    s[i] = q + 'a';
+                    b[q]--;
+            }
+        }
+    }
+    public:
+    
+    string rearrange (string s, int n)
+    {
+        // your code here
+        vector<int> v(26,0), c(26,0);
+        int v_count=0;
+        for(auto x:s){
+            if(x == 'a' ||x == 'e' ||x == 'i' ||x == 'o' ||x == 'u'){
+                v_count++;
+                v[x-'a']++;
+                
+            }
+            else{
+                c[x-'a']++;
+            }
+        }
+        int c_count = n - v_count;
+        
+        if(abs(v_count - c_count)>1)
+            return "-1";
+            
+        if(v_count > c_count)
+            util(v, c, s);
+            
+        else if(v_count < c_count)
+            util(c, v, s);
+        
+        else{
+            for(int i=0; i<26; i++){
+                if(c[i]>0){
+                    util(c, v, s);
+                    break;
+                }
+                if(v[i]>0){
+                    util(v, c, s);
+                    break;
+                }
+            }
+        }
+        return s;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main()
+{
+	int t; cin >> t;
+	while (t--)
+	{
+		int n; cin >> n;
+		string s; cin >> s;
+		Solution ob;
+		cout << ob.rearrange (s, n) << endl;
+	}
+}
+// Contributed By: Pranay Bansal
+
+// } Driver Code Ends
